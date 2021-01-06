@@ -62,8 +62,16 @@ print(roll_dice(3,30))
 
 #Exercise 2.5 - Quadratic Formula
 def roots(a, b, c):
-    determinant = (b**2 - 4*a*c)/(2*a)
-    if determinant < 0:
+    discriminant = (b**2 - 4*a*c)/(2*a)
+    if discriminant < 0:
         return "Error: Roots are complex"
-    elif determinant = 0:
-        
+    elif discriminant == 0:
+        return (-b/(2*a))
+    else:
+        return ((-b + math.sqrt(b**2 - 4*a*c))/(2*a), (-b - math.sqrt(b**2 - 4*a*c))/(2*a))
+
+
+
+print(roots(1, 2, 3))
+print(roots(1, 2, -3))
+print(roots(1, 2, 1))
