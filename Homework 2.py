@@ -118,6 +118,16 @@ coin_flips = [x+y for x in ["h", "t"] for y in ["h", "t"]]
 
 def get_vowels(string):
     vowels = ['a','e','i','o','u']
-    return [x for x in string if x in vowels]
+    return [x for x in string if x.lower() in vowels]
 
-print(get_vowels("Adam Werbik"))
+print(get_vowels("It was a bright cold day in April and the clock was striking thirteen."))
+
+print([x+y for x in [10,20,30] for y in [1,2,3]])
+def questionfour():
+    result = []
+    for x in [10,20,30]:
+        for y in [1, 2, 3]:
+            result.append(x+y)
+    return result
+
+print(questionfour())
