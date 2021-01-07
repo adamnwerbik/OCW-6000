@@ -1,7 +1,7 @@
 # Problem Set 2, hangman.py
 # Name: Adam Werbik
 # Collaborators:
-# Time spent:
+# Time spent: 20 mins
 
 # Hangman Game
 # -----------------------------------
@@ -81,9 +81,9 @@ def get_guessed_word(secret_word, letters_guessed):
       gsd_word.append(letter)
     return "".join(gsd_word)
 
-secret_word = "apple"
-letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']
-print(get_guessed_word(secret_word, letters_guessed))
+#secret_word = "apple"
+#letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']
+#print(get_guessed_word(secret_word, letters_guessed))
 
 
 
@@ -94,8 +94,19 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-    
+    all_letters = string.ascii_lowercase
+    list_available_letters = []
+    for letter in list(all_letters):
+      if letter not in letters_guessed:
+        list_available_letters.append(letter)
+      else:
+        ()
+    return "".join(list_available_letters)
+
+
+letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']   
+print(get_available_letters(letters_guessed))
+
     
 
 def hangman(secret_word):
