@@ -101,7 +101,8 @@ for i in range(5):
 
 
 import math
-possibilities = [x for x in range(0,10000+1)]
+num_pos = 10000
+possibilities = [x for x in range(0,num_pos+1)]
 total_price = 1000000
 deposit_prop = 0.25
 annual_return = 0.04
@@ -111,30 +112,35 @@ bisections = 0
 starting_salary = float(input("Enter the starting salary: "))
 
 while True:
+    bisections += 1
     savings = 0
-    print("savings = zero")
+    #print("savings = zero")
     midpoint = math.ceil((possibilities[0]+possibilities[-1])/2)
-    print(f"mdpt: {midpoint}")
-    for month in range(0, 36+1):
+    #print(f"mdpt: {midpoint}")
+    annual_salary = starting_salary
+    for month in range(0, 36):
         investment_returns = savings * (annual_return/12)
-        monthly_wage = starting_salary/12
-        savings += (midpoint/10000) * (monthly_wage) + investment_returns
+        monthly_wage = annual_salary/12
+        savings += (midpoint/num_pos) * (monthly_wage) + investment_returns
+        #print(f"Month: {month} Savings: {savings}")
         if month%6 == 0 and month>1:
-            starting_salary *= (1+semi_annual_raise)
+            annual_salary *= (1+semi_annual_raise)
         else:
             ()
     if abs(savings - deposit_needed) <= 100:
         break
     elif savings > deposit_needed: #saved too much, so "optimal" saving rate below midpt
         possibilities = possibilities[0:possibilities.index(midpoint)]
-        print("Saved up too much!")
+        #print("Saved up too much!")
     else:
-        print("Saved up too little!")
+        #print("Saved up too little!")
         possibilities = possibilities[possibilities.index(midpoint):len(possibilities)]
-    bisections += 1
-    print(f"Savings: {savings}")
+    if len(possibilities) <= 2:
+        print("It is not possible to pay the down payment in three years.")
+        break
+    #print(f"Savings: {savings}")
     savings = 0
 
-print(f"Best savings rate: {midpoint/1000}")
+print(f"Best savings rate: {midpoint/num_pos}")
 print(f"Steps in bisection search: {bisections}")
     
