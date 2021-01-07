@@ -75,3 +75,49 @@ def roots(a, b, c):
 print(roots(1, 2, 3))
 print(roots(1, 2, -3))
 print(roots(1, 2, 1))
+
+
+#Skipped 2.6 & 2.7
+
+
+#Ex 2.8
+def report_card():
+    num_subjects = int(input("How many subjects did you take: "))
+    subject_db = dict()
+    total = 0
+    for subject in range(num_subjects):
+        name = input("What was the name of this subject?: ")
+        mark = int(input(f"What was your grade for {name}?: "))
+        #print("Mark is " + str(mark))
+        total += mark
+        subject_db[name] = mark
+    print("REPORT CARD")
+    for i in subject_db:
+        print(i +": " + str(subject_db[i]))
+    print("Overall GPA: " + str(total/int(num_subjects)))
+#report_card()
+
+#Ex 2.9
+def pig_latin(word):
+    vowels = ['a','e','i','o','u']
+    pig_latin_word = ""
+    if word[0] in vowels:
+        return word + "hay"
+    else:
+        first_letter = word[0]
+        return word[1:] + first_letter + "ay"
+
+print(pig_latin("image"))
+print(pig_latin("boot"))
+print(pig_latin("adamwerbik"))
+
+#Ex. 2.10 - List Comprehensions
+nums_1_to_10_cubed = [x**3 for x in range(1,10+1)]
+
+coin_flips = [x+y for x in ["h", "t"] for y in ["h", "t"]]
+
+def get_vowels(string):
+    vowels = ['a','e','i','o','u']
+    return [x for x in string if x in vowels]
+
+print(get_vowels("Adam Werbik"))
