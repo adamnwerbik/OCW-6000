@@ -55,7 +55,9 @@ while True:
     #work out how much they'd save in the given timeframe, then compare, 
     #and adjust range (discard half)
     savings = 0
+    months = 0
     for i in range(0,36+1):
+        months += 1
         investment_returns = savings * (0.04/12)
         savings += investment_returns + annual_salary 
         
