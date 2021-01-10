@@ -194,10 +194,17 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-
-    pass  # TO DO... Remove this line when you implement this function
-
-#
+    #print(f"The word is {word}")
+    if word.lower() not in word_list:
+        return False
+    word_dict = get_frequency_dict(word.lower())
+    for letter in word.lower():
+        if letter not in hand.keys():
+            return False
+        if word_dict[letter] > hand[letter]:
+            return False
+    return True
+    
 # Problem #5: Playing a hand
 #
 def calculate_handlen(hand):
@@ -207,9 +214,8 @@ def calculate_handlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
+    return sum(hand.values()) 
     
-    pass  # TO DO... Remove this line when you implement this function
-
 def play_hand(hand, word_list):
 
     """
