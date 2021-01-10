@@ -3,8 +3,8 @@
 # The 6.0001 Word Game
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
-# Name          : <your name>
-# Collaborators : <your collaborators>
+# Name          : Adam Werbik   
+# Collaborators : None
 # Time spent    : <total time>
 
 import math
@@ -91,7 +91,12 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
-    
+    first_component = 0
+    word = word.lower()
+    for letter in tuple(word):
+        first_component += SCRABBLE_LETTER_VALUES[letter]
+    second_component = max((1, 7 * len(word) - 3* (n - len(word))))
+    return first_component * second_component
     pass  # TO DO... Remove this line when you implement this function
 
 #
