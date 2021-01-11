@@ -137,8 +137,8 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     
-    hand={}
-    num_vowels = int(math.ceil(n / 3))
+    hand={'*':1,}
+    num_vowels = int(math.ceil(n / 3)-1)
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -150,6 +150,7 @@ def deal_hand(n):
     
     return hand
 
+print(deal_hand(6))
 #
 # Problem #2: Update a hand by removing letters
 #
