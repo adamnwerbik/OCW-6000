@@ -13,7 +13,7 @@ import string
   
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 7
+HAND_SIZE = 5
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
@@ -141,7 +141,7 @@ def deal_hand(n):
     """
     
     hand={'*':1,}
-    num_vowels = int(math.ceil(n / 3)-1)
+    num_vowels = int(math.ceil(n-1/ 3))
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -153,7 +153,6 @@ def deal_hand(n):
     
     return hand
 
-print(deal_hand(6))
 #
 # Problem #2: Update a hand by removing letters
 #
@@ -273,9 +272,9 @@ def play_hand(hand, word_list):
         # Display the hand
         print(hand)
         # Ask user for input
-        user_input = input("Enter a letter: ")
+        user_input = input("Enter a word, or '!!' to indicate that you are finished: ")
         # If the input is two exclamation points:
-        if user_input == "!!"
+        if user_input == "!!":
             # End the game (break out of the loop)
             break
             
@@ -285,20 +284,23 @@ def play_hand(hand, word_list):
             if is_valid_word(word, hand, word_list):
                 # Tell the user how many points the word earned,
                 # and the updated total score
-                print(f"Your word '{word}' scored ")     #CONT HERE 
+                got_pts = get_word_score(word)
+                score += got_pts
+                print(f"{word} earned {got_pts} points. Total: {score} points.")     #CONT HERE 
             # Otherwise (the word is not valid):
                 # Reject invalid word (print a message)
-                
+            else:
+                print("That is not a valid word. Please enter a valid word.")
             # update the user's hand by removing the letters of their inputted word
-            
+            hand = update_hand(hand, word)
 
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
-
+    print(f"Ran out of letters. Total score: {score} points")
     # Return the total score as result of function
+    return score
 
-
-
+play_hand(deal_hand(5) , load_words)
 #
 # Problem #6: Playing a game
 # 
