@@ -13,7 +13,7 @@ import string
   
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 5
+HAND_SIZE = 15
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
@@ -140,10 +140,10 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     
-    hand={'*':1,}
-    num_vowels = int(math.ceil(n-1/ 3))
+    hand = {'*':1}
+    num_vowels = int(math.ceil(((n)/3)))
 
-    for i in range(num_vowels):
+    for i in range(num_vowels-1):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
     
@@ -281,18 +281,18 @@ def play_hand(hand, word_list):
         # Otherwise (the input is not two exclamation points):
         else:
             # If the word is valid:
-            if is_valid_word(word, hand, word_list):
+            if is_valid_word(user_input, hand, word_list):
                 # Tell the user how many points the word earned,
                 # and the updated total score
-                got_pts = get_word_score(word)
+                got_pts = get_word_score(user_input)
                 score += got_pts
-                print(f"{word} earned {got_pts} points. Total: {score} points.")     #CONT HERE 
+                print(f"{user_input} earned {got_pts} points. Total: {score} points.")     #CONT HERE 
             # Otherwise (the word is not valid):
                 # Reject invalid word (print a message)
             else:
                 print("That is not a valid word. Please enter a valid word.")
             # update the user's hand by removing the letters of their inputted word
-            hand = update_hand(hand, word)
+            hand = update_hand(hand, user_input)
 
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
@@ -300,7 +300,8 @@ def play_hand(hand, word_list):
     # Return the total score as result of function
     return score
 
-play_hand(deal_hand(5) , load_words)
+
+play_hand(deal_hand(15) , load_words)
 #
 # Problem #6: Playing a game
 # 
