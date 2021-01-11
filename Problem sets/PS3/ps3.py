@@ -198,25 +198,11 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-    #print(f"The word is {word}")
-#    if word.lower() not in word_list:
-#        return False
-#    used_wildcard = False
-#    word_dict = get_frequency_dict(word.lower())
-#    for letter in word.lower():
-#        if letter not in hand.keys():
-#            return False
-#        if word_dict[letter] > hand[letter]:
-#            return False
-#    return True
-#
     word_dict = get_frequency_dict(word.lower())
     if '*' in word_dict.keys():
         if word_dict['*'] > 1: #returns False if more than 1 wildcards are used 
             return False
         elif word_dict['*'] == 1: #if there is one wildcard
-            #possible_words = []
-            wc_index = word.find('*')
             for word_in_list in word_list:
                 if len(word_in_list) == len(word):
                     for vowel in VOWELS:
@@ -281,25 +267,25 @@ def play_hand(hand, word_list):
     
     # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
     # Keep track of the total score
-    
+    score = 0
     # As long as there are still letters left in the hand:
-    
+    while sum(hand.values()) != 0:
         # Display the hand
-        
+        print(hand)
         # Ask user for input
-        
+        user_input = input("Enter a letter: ")
         # If the input is two exclamation points:
-        
+        if user_input == "!!"
             # End the game (break out of the loop)
-
+            break
             
         # Otherwise (the input is not two exclamation points):
-
+        else:
             # If the word is valid:
-
+            if is_valid_word(word, hand, word_list):
                 # Tell the user how many points the word earned,
                 # and the updated total score
-
+                print(f"Your word '{word}' scored ")     #CONT HERE 
             # Otherwise (the word is not valid):
                 # Reject invalid word (print a message)
                 
