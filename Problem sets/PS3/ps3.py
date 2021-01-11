@@ -94,7 +94,10 @@ def get_word_score(word, n):
     first_component = 0
     word = word.lower()
     for letter in tuple(word):
-        first_component += SCRABBLE_LETTER_VALUES[letter]
+        if letter == '*':
+            first_component += 0
+        else:
+            first_component += SCRABBLE_LETTER_VALUES[letter]
     second_component = max((1, 7 * len(word) - 3* (n - len(word))))
     return first_component * second_component
 
@@ -196,16 +199,44 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
     #print(f"The word is {word}")
-    if word.lower() not in word_list:
-        return False
+#    if word.lower() not in word_list:
+#        return False
+#    used_wildcard = False
+#    word_dict = get_frequency_dict(word.lower())
+#    for letter in word.lower():
+#        if letter not in hand.keys():
+#            return False
+#        if word_dict[letter] > hand[letter]:
+#            return False
+#    return True
+#
     word_dict = get_frequency_dict(word.lower())
-    for letter in word.lower():
-        if letter not in hand.keys():
+    if '*' in word_dict.keys():
+        if word_dict['*'] > 1: #returns False if more than 1 wildcards are used 
             return False
-        if word_dict[letter] > hand[letter]:
+        elif word_dict['*'] == 1: #if there is one wildcard
+            #possible_words = []
+            wc_index = word.find('*')
+            for word_in_list in word_list:
+                if len(word_in_list) == len(word):
+                    for vowel in VOWELS:
+                        if word_in_list == word.lower().replace('*', vowel):
+                            return True
+        return False
+    else: #proceed as before
+        if word.lower() not in word_list:
             return False
-    return True
-    
+        for letter in word.lower():
+            if letter not in hand.keys():
+                return False
+            if word_dict[letter] > hand[letter]:
+                return False
+        return True
+
+            
+#CONT HERE
+
+
 # Problem #5: Playing a hand
 #
 def calculate_handlen(hand):
