@@ -284,7 +284,7 @@ def play_hand(hand, word_list):
             if is_valid_word(user_input, hand, word_list):
                 # Tell the user how many points the word earned,
                 # and the updated total score
-                got_pts = get_word_score(user_input)
+                got_pts = get_word_score(user_input, sum(hand.values()))
                 score += got_pts
                 print(f"{user_input} earned {got_pts} points. Total: {score} points.")     #CONT HERE 
             # Otherwise (the word is not valid):
@@ -301,7 +301,6 @@ def play_hand(hand, word_list):
     return score
 
 
-play_hand(deal_hand(15) , load_words)
 #
 # Problem #6: Playing a game
 # 
