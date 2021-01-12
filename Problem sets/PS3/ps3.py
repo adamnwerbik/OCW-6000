@@ -13,7 +13,7 @@ import string
   
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
-HAND_SIZE = 15
+HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
     'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
@@ -316,7 +316,7 @@ def substitute_hand(hand, letter):
     with a new letter chosen from the VOWELS and CONSONANTS at random. The new letter
     should be different from user's choice, and should not be any of the letters
     already in the hand.
-
+    
     If user provide a letter not in the hand, the hand should be the same.
 
     Has no side effects: does not mutate hand.
@@ -332,16 +332,30 @@ def substitute_hand(hand, letter):
     letter: string
     returns: dictionary (string -> int)
     """
+    hand_copy = hand.copy()
+    num_to_repl = hand_copy.get(letter, 0)
+    print(f"hand is: {hand}")
+    if letter not in hand:
+        print("letter not in hand")
+        return hand
+    else:
+        num_to_repl = hand_copy.get(letter, 0)
+        master_set = set(VOWELS).union(set(CONSONANTS))
+        for key in hand.keys():
+            master_set.discard(key)
+        for i in range(num_to_repl):
+                hand_copy[random.choice(list(master_set))] = 1
+    return hand_copy 
     
-    pass  # TO DO... Remove this line when you implement this function
-       
-    
+#print(substitute_hand(deal_hand(HAND_SIZE), 'b'))
+
+
 def play_game(word_list):
     """
     Allow the user to play a series of hands
 
     * Asks the user to input a total number of hands
-
+    
     * Accumulates the score for each hand into a total score for the 
       entire series
  
@@ -366,8 +380,32 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
-    
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    num_hands = int(input("Enter total number of hands: "))
+    total_score = 0
+    can_sub = True
+    can_repl = True
+    while num_hands > 0:
+        current_hand = deal_hand(HAND_SIZE)
+        current_hand_2 = current_hand.copy()
+        print(current_hand)
+        wanna_sub = input("Would you like to substitute a letter?: ")
+        if wanna_sub.lower() == 'y' or wanna_sub.lower() == 'yes':
+            letter_to_sub = input("Which letter would you like to replace?: ")
+            current_hand = substitute_hand(current_hand, letter_to_sub)
+            can_sub = False
+        hand_score = play_hand(current_hand, word_list)
+        replay = input("Do you want to replay this hand?: ")
+        if replay == 'y' or replay.lower() == 'yes':
+            can_repl = False
+            can_sub = False
+            hand_score = play_hand(current_hand_2, word_list) 
+        total_score += hand_score
+        num_hands -= 1    
+
+    return total_score                  
+
+
+    #print("play_game not implemented.") # TO DO... Remove this line when you implement this function
     
 
 
